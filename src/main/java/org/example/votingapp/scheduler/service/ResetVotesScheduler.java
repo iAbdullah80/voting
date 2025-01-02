@@ -1,5 +1,6 @@
 package org.example.votingapp.scheduler.service;
 
+import jakarta.transaction.Transactional;
 import org.example.votingapp.voting.repository.CandidateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ public class ResetVotesScheduler {
 
     @Scheduled(cron = "0 */2 * * * *")
     @Async
+    @Transactional
     public void resetVotes() {
         if (!schedulerActiveResetVote) {
             logger.info("Reset votes scheduler is currently stopped.");
@@ -51,6 +53,7 @@ public class ResetVotesScheduler {
 
     @Scheduled(cron = "0 0/2 * * * *")
     @Async
+    @Transactional
     public void deleteCandidates() {
         if (!schedulerActiveDeleteVote) {
             logger.info("Delete votes scheduler is currently stopped.");

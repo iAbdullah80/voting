@@ -1,5 +1,6 @@
 package org.example.votingapp.voting.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.votingapp.voting.model.Candidate;
 import org.example.votingapp.voting.service.VotingService;
@@ -21,6 +22,8 @@ public class VotingController {
     @Autowired
     private VotingService votingService;
 
+    @Operation(summary = "get candidate",
+    description = "Get the candidate information by id")
     @Tag(name = "GET", description = "GET methods of Voting APIs")
     @GetMapping("candidate/{id}")
     public Candidate getCandidate(@PathVariable int id) {

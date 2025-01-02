@@ -1,5 +1,6 @@
 package org.example.votingapp.voting.service;
 
+import jakarta.transaction.Transactional;
 import org.example.votingapp.voting.model.Candidate;
 import org.example.votingapp.voting.repository.CandidateRepository;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ public class VotingService {
     @Autowired
     private CandidateRepository candidateRepository;
 
+    @Transactional
     public Candidate getCandidate(int candidateId) {
         logger.info("Fetching candidate with ID: {}", candidateId);
         return candidateRepository.findById(candidateId)
@@ -26,6 +28,7 @@ public class VotingService {
                 });
     }
 
+    @Transactional
     public List<Candidate> getCandidates() {
         logger.info("Fetching all candidates");
         List<Candidate> candidates = candidateRepository.findAll();
@@ -33,6 +36,7 @@ public class VotingService {
         return candidates;
     }
 
+    @Transactional
     public Candidate addCandidate(Candidate candidate) {
         logger.info("Adding a new candidate: {} {}", candidate.getFirstName(), candidate.getLastName());
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -40,6 +44,7 @@ public class VotingService {
         return savedCandidate;
     }
 
+    @Transactional
     public void deleteCandidate(int candidateId) {
         logger.info("Deleting candidate with ID: {}", candidateId);
         if (!candidateRepository.existsById(candidateId)) {
@@ -50,6 +55,7 @@ public class VotingService {
         logger.info("Candidate with ID {} deleted successfully", candidateId);
     }
 
+    @Transactional
     public Candidate addVote(int candidateId) {
         logger.info("Adding a vote to candidate with ID: {}", candidateId);
         Candidate candidate = candidateRepository.findById(candidateId).orElseThrow(() -> {
